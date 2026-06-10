@@ -230,6 +230,51 @@
   .bs-card h4 { margin: 12px 0 6px; font-size: 17px; font-weight: 800; }
   .bs-card p { font-size: 13.5px; color: var(--dim); }
 
+  /* ============ FOTO DALILA (faixa 01) ============ */
+  .track { position: relative; }
+  .dalila-pic {
+    position: absolute; top: 26px; right: 28px; width: 92px; height: 92px;
+    border-radius: 50%; object-fit: cover; border: 3px solid var(--yellow);
+    box-shadow: 0 0 28px rgba(255,163,0,.35);
+  }
+  .track .with-avatar { padding-right: 110px; }
+  @media (max-width: 720px) {
+    .dalila-pic { position: static; display: block; margin-bottom: 14px; }
+    .track .with-avatar { padding-right: 0; }
+  }
+
+  /* ============ NOVOS PALCOS (supervisores) ============ */
+  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .stage {
+    background: linear-gradient(180deg, var(--card) 0%, #131218 100%);
+    border: 1px solid var(--border); border-radius: 18px; padding: 34px 28px 30px;
+    text-align: center; position: relative; overflow: hidden;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .stage:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(0,0,0,.5); }
+  .stage::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent, var(--yellow)); }
+  .stage:hover { border-color: var(--accent, var(--yellow)); }
+  .stage .face {
+    width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: top;
+    border: 3px solid var(--accent, var(--yellow)); margin: 0 auto 16px; display: block;
+    box-shadow: 0 0 30px color-mix(in srgb, var(--accent, var(--yellow)) 30%, transparent);
+  }
+  .stage .squad {
+    display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px;
+    color: var(--accent, var(--yellow)); border: 1px solid var(--accent, var(--yellow)); margin-bottom: 12px;
+  }
+  .stage h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .stage p { font-size: 13.5px; color: var(--dim); }
+  .stage p strong { color: var(--text); }
+  .stage .tag-new {
+    position: absolute; top: 16px; right: -34px; transform: rotate(38deg);
+    background: var(--accent, var(--yellow)); color: #15130d; font-family: var(--mono);
+    font-size: 9.5px; font-weight: 800; letter-spacing: .18em; padding: 4px 40px;
+  }
+  .stages-note { margin-top: 26px; text-align: center; font-size: 14px; color: var(--dim); max-width: 640px; margin-left: auto; margin-right: auto; }
+  .stages-note strong { color: var(--yellow-hot); }
+
   /* ============ BIS / FINAL ============ */
   .finale {
     text-align: center; padding: 110px 0 90px; position: relative; overflow: hidden;
@@ -301,11 +346,12 @@
     <p class="sec-sub">Não foi mês de tocar o de sempre. O time entrou em estúdio e saiu com <strong>arranjos novos para os maiores clássicos da operação</strong>.</p>
 
     <div class="track reveal">
+      <img class="dalila-pic" src="assets/dalila.jpg" alt="Dalila" onerror="this.remove()">
       <div class="track-no"><div class="n">01</div><div class="lbl">Faixa</div></div>
       <div>
-        <h3>Dalila, agora em uma só voz</h3>
-        <div class="hitline">♪ feat. Planejadora &amp; Orquestradora — o single principal do álbum</div>
-        <p>
+        <h3 class="with-avatar">Dalila, agora em uma só voz</h3>
+        <div class="hitline with-avatar">♪ feat. Planejadora &amp; Orquestradora — o single principal do álbum</div>
+        <p class="with-avatar">
           As Dalilas <strong>Outbound, SDR e Vendedora se unificaram</strong> em uma nova arquitetura.
           Em vez de três agentes com roteiros separados, agora o atendimento nasce de uma dupla afinada:
         </p>
@@ -583,6 +629,48 @@
         <p>Story points, entregas e satisfação em tempo real, sem planilha paralela.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ NOVOS PALCOS ============ -->
+<section id="novos-palcos">
+  <div class="wrap">
+    <div class="sec-kicker">🎪 Ato Final · A Nova Era</div>
+    <h2>A turnê virou festival</h2>
+    <p class="sec-sub">
+      O som da IA &amp; Automação ficou grande demais para um palco só. A operação cresceu — e agora são
+      <strong>três palcos, cada um com seu diretor</strong>. A novidade do mês: dois novos supervisores assumem
+      seus squads, e cada frente ganha atenção dedicada.
+    </p>
+
+    <div class="stages">
+      <div class="stage reveal" style="--accent:#4dd6ff">
+        <span class="tag-new">NOVO</span>
+        <img class="face" src="assets/saulo.jpg" alt="Saulo" onerror="this.remove()">
+        <span class="squad">IA &amp; Automação · Operações</span>
+        <h3>Saulo</h3>
+        <p>Assume o palco de <strong>Operações</strong> — levando a automação e a IA para o coração operacional da Blips.</p>
+      </div>
+
+      <div class="stage reveal" style="--accent:#9d7bff">
+        <span class="tag-new">NOVO</span>
+        <img class="face" src="assets/jvinicius.webp" alt="João Vinicius" onerror="this.remove()">
+        <span class="squad">IA &amp; Automação · Finza</span>
+        <h3>João Vinicius</h3>
+        <p>Assume o palco do <strong>squad Finza</strong> — inteligência e automação a serviço da frente financeira.</p>
+      </div>
+
+      <div class="stage reveal" style="--accent:#FFA300">
+        <img class="face" src="assets/mateus.jpg" alt="Mateus Alberone" onerror="this.remove()">
+        <span class="squad">IA &amp; Automação · SalesOps</span>
+        <h3>Mateus Alberone</h3>
+        <p>Segue à frente do <strong>SalesOps</strong> — com foco total no palco onde Dalila, Kiara e Mariah se apresentam.</p>
+      </div>
+    </div>
+
+    <p class="stages-note reveal">
+      Mais palcos, mais shows, <strong>a mesma banda</strong> — a estrutura cresce para a IA &amp; Automação chegar a cada canto da Blips com a mesma energia de maio.
+    </p>
   </div>
 </section>
 
