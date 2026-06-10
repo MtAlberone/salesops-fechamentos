@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesOps · A Turnê de Maio 2026 🎤</title>
+<style>
+  :root {
+    --bg: #0a0a0d;
+    --bg2: #111016;
+    --card: #17161d;
+    --card-hover: #1d1c24;
+    --border: #2a2933;
+    --yellow: #FFA300;
+    --yellow-hot: #FFC23D;
+    --yellow-soft: rgba(255, 163, 0, 0.12);
+    --pink: #ff5fa2;
+    --violet: #9d7bff;
+    --cyan: #4dd6ff;
+    --text: #f5f4f0;
+    --dim: #a3a1ad;
+    --faint: #66646f;
+    --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+  /* ============ MARQUEE TICKER ============ */
+  .ticker {
+    background: var(--yellow); color: #15130d; overflow: hidden; white-space: nowrap;
+    font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: .12em;
+    padding: 7px 0; position: relative; z-index: 60;
+  }
+  .ticker-inner { display: inline-block; animation: ticker 28s linear infinite; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ============ HERO / PALCO ============ */
+  .hero {
+    position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 45% at 50% 108%, rgba(255,163,0,0.22), transparent 70%),
+      radial-gradient(ellipse 45% 38% at 18% -8%, rgba(157,123,255,0.14), transparent 70%),
+      radial-gradient(ellipse 45% 38% at 84% -8%, rgba(255,95,162,0.12), transparent 70%),
+      var(--bg);
+  }
+  /* feixes de luz do palco */
+  .beam { position: absolute; top: -12%; width: 130px; height: 80%; pointer-events: none; opacity: .5;
+    background: linear-gradient(180deg, rgba(255,194,61,0.32), transparent 80%); filter: blur(6px);
+    transform-origin: top center; animation: sway 7s ease-in-out infinite alternate; }
+  .beam.b1 { left: 12%; transform: rotate(16deg); }
+  .beam.b2 { left: 46%; transform: rotate(-4deg); animation-delay: 1.4s; }
+  .beam.b3 { right: 10%; transform: rotate(-18deg); animation-delay: 2.6s; }
+  @keyframes sway { from { transform: rotate(var(--r, 14deg)); } to { transform: rotate(calc(var(--r, 14deg) * -0.55)); } }
+  .b1 { --r: 18deg; } .b2 { --r: -6deg; } .b3 { --r: -20deg; }
+
+  .hero .wrap { position: relative; z-index: 2; padding-top: 60px; padding-bottom: 80px; }
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono);
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--yellow-hot);
+    border: 1px solid rgba(255,163,0,.35); background: rgba(255,163,0,.08);
+    border-radius: 999px; padding: 7px 18px; margin-bottom: 28px;
+  }
+  .hero h1 { font-size: clamp(44px, 8vw, 96px); font-weight: 900; letter-spacing: -0.03em; line-height: .98; text-transform: uppercase; }
+  .hero h1 .l1 { display: block; color: var(--text); }
+  .hero h1 .l2 {
+    display: block;
+    background: linear-gradient(92deg, var(--yellow) 10%, var(--yellow-hot) 45%, var(--pink) 110%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .sub { margin-top: 26px; max-width: 640px; font-size: 18px; color: var(--dim); }
+  .hero .sub strong { color: var(--text); }
+  .lineup { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .lineup span {
+    font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--card);
+  }
+  .lineup .dalila { color: var(--yellow-hot); border-color: rgba(255,163,0,.4); }
+  .lineup .kiara  { color: var(--cyan);  border-color: rgba(77,214,255,.35); }
+  .lineup .mariah { color: var(--pink);  border-color: rgba(255,95,162,.35); }
+  .scroll-cue { margin-top: 56px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .2em; color: var(--faint); text-transform: uppercase; }
+  .scroll-cue::after { content: " ↓"; color: var(--yellow); }
+
+  /* equalizer */
+  .eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 16px; margin-right: 4px; }
+  .eq i { width: 3px; background: var(--yellow); border-radius: 2px; animation: eq 1s ease-in-out infinite alternate; }
+  .eq i:nth-child(1) { height: 50%; } .eq i:nth-child(2) { height: 100%; animation-delay: .2s; }
+  .eq i:nth-child(3) { height: 65%; animation-delay: .35s; } .eq i:nth-child(4) { height: 85%; animation-delay: .5s; }
+  @keyframes eq { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+
+  /* ============ SEÇÕES ============ */
+  section { padding: 84px 0; position: relative; }
+  section.alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .sec-kicker { font-family: var(--mono); font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+  h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 10px; }
+  .sec-sub { color: var(--dim); font-size: 15.5px; max-width: 660px; margin-bottom: 44px; }
+  .sec-sub strong { color: var(--text); }
+
+  /* ============ SETLIST (faixas) ============ */
+  .track {
+    display: grid; grid-template-columns: 88px 1fr; gap: 26px; align-items: start;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 32px 34px; margin-bottom: 18px; transition: border-color .2s, background .2s, transform .2s;
+  }
+  .track:hover { background: var(--card-hover); border-color: rgba(255,163,0,.45); transform: translateX(4px); }
+  .track-no { font-family: var(--mono); }
+  .track-no .n { font-size: 38px; font-weight: 800; color: var(--yellow); line-height: 1; }
+  .track-no .lbl { font-size: 10px; letter-spacing: .18em; color: var(--faint); text-transform: uppercase; margin-top: 6px; }
+  .track h3 { font-size: 21px; font-weight: 800; letter-spacing: -0.01em; }
+  .track .hitline { font-family: var(--mono); font-size: 12px; color: var(--yellow-hot); margin: 4px 0 14px; letter-spacing: .04em; }
+  .track p { font-size: 15px; color: var(--dim); }
+  .track p strong, .track li strong { color: var(--text); }
+  .track ul { margin: 12px 0 0 18px; color: var(--dim); font-size: 14.5px; }
+  .track li { margin-bottom: 7px; }
+  .track .chip-row { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em; padding: 4px 12px;
+    border-radius: 999px; background: var(--yellow-soft); color: var(--yellow-hot); border: 1px solid rgba(255,163,0,.25);
+  }
+
+  /* diagrama planejadora -> orquestradora */
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 20px; flex-wrap: wrap; }
+  .flow .node {
+    flex: 1; min-width: 200px; background: #100f15; border: 1px solid rgba(255,163,0,.3);
+    border-radius: 14px; padding: 18px 20px;
+  }
+  .flow .node .t { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--yellow); text-transform: uppercase; }
+  .flow .node .name { font-weight: 800; font-size: 17px; margin: 4px 0 6px; }
+  .flow .node p { font-size: 13px; color: var(--dim); }
+  .flow .arrow { display: flex; align-items: center; padding: 0 14px; color: var(--yellow); font-size: 26px; font-weight: 700; }
+  @media (max-width: 720px) { .flow .arrow { width: 100%; justify-content: center; padding: 6px 0; transform: rotate(90deg); } }
+
+  /* ============ BILHETERIA (KPIs) ============ */
+  .tickets { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .ticket {
+    position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 26px; overflow: hidden; transition: transform .2s, border-color .2s;
+  }
+  .ticket:hover { transform: translateY(-4px); border-color: rgba(255,163,0,.5); }
+  .ticket::before {
+    content: ""; position: absolute; left: -9px; top: 50%; width: 18px; height: 18px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 50%; transform: translateY(-50%);
+  }
+  .ticket::after {
+    content: ""; position: absolute; right: -9px; top: 50%; width: 18px; height: 18px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 50%; transform: translateY(-50%);
+  }
+  .ticket .emoji { font-size: 26px; }
+  .ticket .big { font-family: var(--mono); font-size: 46px; font-weight: 800; line-height: 1.1; margin: 10px 0 2px; color: var(--text); }
+  .ticket .big .u { font-size: 22px; color: var(--faint); }
+  .ticket .lbl { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  .ticket .note { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--yellow-hot); }
+  .ticket.gold { border-color: rgba(255,163,0,.45); box-shadow: 0 0 36px rgba(255,163,0,.08) inset; }
+
+  /* ============ VU METERS ============ */
+  .vu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 18px; }
+  .vu {
+    background: linear-gradient(180deg, #1a1920 0%, #131218 100%);
+    border: 1px solid var(--border); border-radius: 18px; padding: 26px 26px 28px;
+    text-align: center; transition: border-color .2s, transform .2s; position: relative; overflow: hidden;
+  }
+  .vu:hover { border-color: rgba(255,163,0,.5); transform: translateY(-3px); }
+  .vu::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255,163,0,.06), transparent 70%);
+  }
+  .vu .vu-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+  .vu svg { width: 100%; max-width: 300px; margin: 10px auto 2px; display: block; }
+  .vu .dial-arc { stroke: #2c2b35; stroke-width: 7; fill: none; stroke-linecap: round; }
+  .vu .red-zone { stroke: #e0524d; stroke-width: 7; fill: none; stroke-linecap: round; opacity: .9; }
+  .vu .tick { stroke: #4a4954; stroke-width: 2; }
+  .vu .tick-lbl { fill: #66646f; font-family: var(--mono); font-size: 9px; }
+  .vu .vu-txt { fill: #66646f; font-family: var(--mono); font-size: 8px; letter-spacing: .3em; }
+  .needle { transform-origin: 110px 112px; transform: rotate(var(--ang)); transition: transform 1.8s cubic-bezier(.3,1.35,.35,1); }
+  html.js .reveal:not(.in) .needle { transform: rotate(-80deg); }
+  @media print { .needle { transform: rotate(var(--ang)) !important; } }
+  .vu .read { font-family: var(--mono); font-size: 42px; font-weight: 800; line-height: 1.05; margin-top: 4px; }
+  .vu .read .u { font-size: 20px; color: var(--faint); }
+  .vu .read-sub { font-size: 13px; color: var(--dim); margin-top: 4px; }
+  .vu .vu-chip {
+    display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; padding: 5px 14px; border-radius: 999px;
+    background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.3);
+  }
+  .vu .flavor { margin-top: 10px; font-size: 12.5px; color: var(--faint); font-style: italic; }
+
+  /* ============ PRODUTORES (time) ============ */
+  .crew { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; }
+  .pass {
+    background: linear-gradient(180deg, var(--card) 0%, #131218 100%);
+    border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+    transition: transform .25s, border-color .25s, box-shadow .25s; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .pass:hover { transform: translateY(-6px) rotate(-1deg); border-color: rgba(255,163,0,.55); box-shadow: 0 18px 44px rgba(0,0,0,.5), 0 0 0 1px rgba(255,163,0,.2); }
+  .pass .lanyard { height: 10px; background: repeating-linear-gradient(45deg, var(--yellow) 0 12px, #15130d 12px 24px); }
+  .pass .photo { position: relative; aspect-ratio: 1/1.05; background: #0e0d12; }
+  .pass .photo .fallback {
+    position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 52px; font-weight: 800; color: #15130d;
+  }
+  .pass .photo img {
+    position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+    object-fit: cover; display: block; filter: saturate(1.05) contrast(1.04);
+  }
+  .pass .photo .badge {
+    position: absolute; top: 10px; right: 10px; font-size: 20px;
+    background: rgba(10,10,13,.7); border-radius: 10px; padding: 4px 8px; backdrop-filter: blur(4px);
+  }
+  .pass .info { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+  .pass .role { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+  .pass .name { font-size: 16.5px; font-weight: 800; margin: 3px 0 2px; }
+  .pass .gig { font-size: 12.5px; color: var(--dim); margin-bottom: 12px; }
+  .pass .stats {
+    margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border);
+    display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--dim);
+  }
+  .pass .stats b { color: var(--text); font-size: 15px; display: block; }
+  .pass .access { background: var(--yellow); color: #15130d; text-align: center; font-family: var(--mono); font-size: 9.5px; font-weight: 800; letter-spacing: .3em; padding: 5px 0; }
+  .crew-note { margin-top: 26px; text-align: center; font-size: 14px; color: var(--dim); max-width: 620px; margin-left: auto; margin-right: auto; }
+  .crew-note strong { color: var(--yellow-hot); }
+
+  /* ============ BASTIDORES (Quimera) ============ */
+  .backstage { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .bs-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px 26px; text-align: center; transition: border-color .2s; }
+  .bs-card:hover { border-color: rgba(255,163,0,.4); }
+  .bs-card .ico { font-size: 34px; }
+  .bs-card h4 { margin: 12px 0 6px; font-size: 17px; font-weight: 800; }
+  .bs-card p { font-size: 13.5px; color: var(--dim); }
+
+  /* ============ BIS / FINAL ============ */
+  .finale {
+    text-align: center; padding: 110px 0 90px; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 60% 50% at 50% 115%, rgba(255,163,0,.18), transparent 70%), var(--bg);
+  }
+  .finale .q { font-size: clamp(24px, 3.6vw, 38px); font-weight: 800; letter-spacing: -0.02em; max-width: 760px; margin: 0 auto 18px; line-height: 1.25; }
+  .finale .q .hl { color: var(--yellow); }
+  .finale .sign { font-family: var(--mono); font-size: 14px; color: var(--dim); }
+  .finale .next {
+    margin: 48px auto 0; max-width: 560px; background: var(--yellow-soft);
+    border: 1px solid rgba(255,163,0,.3); border-radius: 14px; padding: 18px 26px;
+    font-size: 14.5px; color: var(--dim);
+  }
+  .finale .next b { color: var(--yellow-hot); font-family: var(--mono); letter-spacing: .1em; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  footer { border-top: 1px solid var(--border); padding: 30px 0 44px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer .y { color: var(--yellow); }
+
+  /* reveal — só com JS ativo (impressão/PDF mostra tudo) */
+  html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+  html.js .reveal.in { opacity: 1; transform: none; }
+  @media print { html.js .reveal { opacity: 1 !important; transform: none !important; } }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 18px; }
+    .track { grid-template-columns: 1fr; gap: 10px; padding: 26px 22px; }
+    .track-no { display: flex; align-items: baseline; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    &nbsp;★ SOLD OUT ★ MAIO 2026 ★ SALESOPS · IA &amp; AUTOMAÇÃO ★ DALILA · KIARA · MARIAH ★ 391 STORY POINTS ★ 131 ENTREGAS ★ CSAT 5.0 ★&nbsp;
+    &nbsp;★ SOLD OUT ★ MAIO 2026 ★ SALESOPS · IA &amp; AUTOMAÇÃO ★ DALILA · KIARA · MARIAH ★ 391 STORY POINTS ★ 131 ENTREGAS ★ CSAT 5.0 ★&nbsp;
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div>
+  <div class="wrap">
+    <div class="hero-kicker"><span class="eq"><i></i><i></i><i></i><i></i></span> SALESOPS APRESENTA · FECHAMENTO MAIO 2026</div>
+    <h1>
+      <span class="l1">A Turnê</span>
+      <span class="l2">de Maio.</span>
+    </h1>
+    <p class="sub">
+      Um mês inteiro de casa cheia. <strong>Dalila, Kiara e Mariah</strong> subiram ao palco todos os dias —
+      e por trás das cortinas, o time de <strong>IA &amp; Automação</strong> reescreveu o show:
+      novas vozes, novos arranjos e a maior bilheteria da história do board.
+    </p>
+    <div class="lineup">
+      <span class="dalila">🎤 DALILA</span>
+      <span class="kiara">🎧 KIARA</span>
+      <span class="mariah">🎷 MARIAH</span>
+    </div>
+    <div class="scroll-cue">Role para entrar no show</div>
+  </div>
+</div>
+
+<!-- ============ SETLIST ============ -->
+<section id="setlist">
+  <div class="wrap">
+    <div class="sec-kicker">🎼 Lado A · O Setlist</div>
+    <h2>Os hits que lançamos em maio</h2>
+    <p class="sec-sub">Não foi mês de tocar o de sempre. O time entrou em estúdio e saiu com <strong>arranjos novos para os maiores clássicos da operação</strong>.</p>
+
+    <div class="track reveal">
+      <div class="track-no"><div class="n">01</div><div class="lbl">Faixa</div></div>
+      <div>
+        <h3>Dalila, agora em uma só voz</h3>
+        <div class="hitline">♪ feat. Planejadora &amp; Orquestradora — o single principal do álbum</div>
+        <p>
+          As Dalilas <strong>Outbound, SDR e Vendedora se unificaram</strong> em uma nova arquitetura.
+          Em vez de três agentes com roteiros separados, agora o atendimento nasce de uma dupla afinada:
+        </p>
+        <div class="flow">
+          <div class="node">
+            <div class="t">🧠 Compositora</div>
+            <div class="name">Dalila Planejadora</div>
+            <p>Traça o script/playbook de cada conversa com base na <strong>origem do lead, análise de crédito, segmento</strong> e contexto do cliente.</p>
+          </div>
+          <div class="arrow">→</div>
+          <div class="node">
+            <div class="t">🎤 Intérprete</div>
+            <div class="name">Dalila Orquestradora</div>
+            <p>Conduz a conversa com o cliente seguindo o playbook — <strong>cada lead recebe o show certo</strong>, do jeito certo.</p>
+          </div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">unificação das 3 Dalilas</span>
+          <span class="chip">playbook por contexto</span>
+          <span class="chip">maior entrega do mês · 13 SP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="track reveal">
+      <div class="track-no"><div class="n">02</div><div class="lbl">Faixa</div></div>
+      <div>
+        <h3>Campanhas Outbound com telão novo</h3>
+        <div class="hitline">♪ a produção que faz o público olhar pro palco</div>
+        <p>A máquina de campanhas ganhou recursos que mudam a experiência de quem recebe — e a inteligência de quem envia:</p>
+        <ul>
+          <li><strong>Envio de imagem nas campanhas</strong> — templates com mídia aprovados e rodando, campanhas muito mais chamativas;</li>
+          <li><strong>Novas regras que habilitam análise de crédito</strong> direto no fluxo da campanha;</li>
+          <li><strong>Direcionamento inteligente de transbordo</strong> — cada resposta cai com o time certo, sem fila errada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="track reveal">
+      <div class="track-no"><div class="n">03</div><div class="lbl">Faixa</div></div>
+      <div>
+        <h3>Ninguém fica fora do show</h3>
+        <div class="hitline">♪ a balada que vira o jogo</div>
+        <p>
+          A Dalila <strong>aprendeu a atuar com leads de crédito reprovado</strong>. O que antes era fim de conversa
+          virou um novo ato: ela reconhece o cenário, ajusta a abordagem e conduz o lead por um caminho
+          alternativo — <strong>transformando "não aprovado" em oportunidade trabalhada</strong>, não em lead descartado.
+        </p>
+      </div>
+    </div>
+
+    <div class="track reveal">
+      <div class="track-no"><div class="n">04</div><div class="lbl">Faixa</div></div>
+      <div>
+        <h3>Lead Score: a backing vocal que rouba a cena</h3>
+        <div class="hitline">♪ a subagente da Dalila que dá o tom de cada lead</div>
+        <p>A <strong>subagente de Lead Scoring da Dalila</strong> ganhou um upgrade completo:</p>
+        <ul>
+          <li><strong>Novo modelo de Lead Score</strong> em produção;</li>
+          <li><strong>Score auditável</strong> — dá pra ver exatamente por que cada lead pontuou o que pontuou;</li>
+          <li><strong>Temperatura do lead visível no CRM</strong> — o comercial enxerga quem está quente sem sair da tela.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="track reveal">
+      <div class="track-no"><div class="n">05</div><div class="lbl">Faixa</div></div>
+      <div>
+        <h3>Kiara no comando da pista</h3>
+        <div class="hitline">♪ o groove da passagem de bastão</div>
+        <p>
+          A Kiara ganhou seu <strong>Agente de Transferência</strong> — o transbordo virou passagem de bastão,
+          suave e no tempo certo: a conversa chega ao time humano com contexto, sem o lead sentir a troca.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BILHETERIA ============ -->
+<section class="alt" id="bilheteria">
+  <div class="wrap">
+    <div class="sec-kicker">🎟️ Lado B · A Bilheteria</div>
+    <h2>Números de casa cheia</h2>
+    <p class="sec-sub">O que o Quimera registrou do nosso mês no palco.</p>
+
+    <div class="tickets">
+      <div class="ticket gold reveal">
+        <div class="emoji">💿</div>
+        <div class="big"><span class="count" data-v="391">0</span></div>
+        <div class="lbl">Story Points entregues</div>
+        <div class="note">▲ disco de ouro: +6,5% vs abril</div>
+      </div>
+      <div class="ticket gold reveal">
+        <div class="emoji">🎫</div>
+        <div class="big"><span class="count" data-v="131">0</span></div>
+        <div class="lbl">Entregas finalizadas</div>
+        <div class="note">▲ +54% vs abril — recorde do board</div>
+      </div>
+      <div class="ticket reveal">
+        <div class="emoji">🔥</div>
+        <div class="big"><span class="count" data-v="23">0</span></div>
+        <div class="lbl">Entregas high priority</div>
+        <div class="note">os shows principais da turnê</div>
+      </div>
+      <div class="ticket reveal">
+        <div class="emoji">⭐</div>
+        <div class="big">5.0<span class="u">/5</span></div>
+        <div class="lbl">CSAT</div>
+        <div class="note">todas as avaliações com nota máxima</div>
+      </div>
+    </div>
+
+    <div class="vu-grid">
+      <div class="vu reveal" style="--ang: 70.7deg">
+        <div class="vu-tag">🎚️ VU Meter · Conclusão</div>
+        <svg viewBox="0 0 220 130">
+          <path class="dial-arc" d="M 29.2 97.7 A 82 82 0 0 1 190.8 97.7"/>
+          <path class="red-zone" d="M 175.8 63.0 A 82 82 0 0 1 190.8 97.7"/>
+          <line class="tick" x1="31.2" y1="98.1" x2="23.3" y2="96.7"/>
+          <line class="tick" x1="58.6" y1="50.7" x2="53.4" y2="44.6"/>
+          <line class="tick" x1="110" y1="32" x2="110" y2="24"/>
+          <line class="tick" x1="161.4" y1="50.7" x2="166.6" y2="44.6"/>
+          <line class="tick" x1="188.8" y1="98.1" x2="196.7" y2="96.7"/>
+          <text class="tick-lbl" x="13" y="98" text-anchor="middle">0</text>
+          <text class="tick-lbl" x="47" y="40" text-anchor="middle">30</text>
+          <text class="tick-lbl" x="110" y="17" text-anchor="middle">60</text>
+          <text class="tick-lbl" x="173" y="40" text-anchor="middle">90</text>
+          <text class="tick-lbl" x="206" y="98" text-anchor="middle">120</text>
+          <text class="vu-txt" x="110" y="92" text-anchor="middle">% DA META</text>
+          <g class="needle">
+            <line x1="110" y1="112" x2="110" y2="40" stroke="#FFA300" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="112" r="7" fill="#FFA300"/>
+            <circle cx="110" cy="112" r="3" fill="#15130d"/>
+          </g>
+        </svg>
+        <div class="read">113<span class="u">%</span></div>
+        <div class="read-sub">131 demandas concluídas · 116 criadas no mês</div>
+        <span class="vu-chip">✓ ACIMA DA META (100%)</span>
+        <div class="flavor">agulha no vermelho — do jeito que produtor gosta 🤘</div>
+      </div>
+
+      <div class="vu reveal" style="--ang: 84deg">
+        <div class="vu-tag">🎚️ VU Meter · Cycle Time</div>
+        <svg viewBox="0 0 220 130">
+          <path class="dial-arc" d="M 29.2 97.7 A 82 82 0 0 1 190.8 97.7"/>
+          <path class="red-zone" d="M 175.8 63.0 A 82 82 0 0 1 190.8 97.7"/>
+          <line class="tick" x1="31.2" y1="98.1" x2="23.3" y2="96.7"/>
+          <line class="tick" x1="58.6" y1="50.7" x2="53.4" y2="44.6"/>
+          <line class="tick" x1="110" y1="32" x2="110" y2="24"/>
+          <line class="tick" x1="161.4" y1="50.7" x2="166.6" y2="44.6"/>
+          <line class="tick" x1="188.8" y1="98.1" x2="196.7" y2="96.7"/>
+          <text class="tick-lbl" x="13" y="98" text-anchor="middle">0</text>
+          <text class="tick-lbl" x="47" y="40" text-anchor="middle">150</text>
+          <text class="tick-lbl" x="110" y="17" text-anchor="middle">300</text>
+          <text class="tick-lbl" x="173" y="40" text-anchor="middle">450</text>
+          <text class="tick-lbl" x="206" y="98" text-anchor="middle">600</text>
+          <text class="vu-txt" x="110" y="92" text-anchor="middle">% DA META</text>
+          <g class="needle">
+            <line x1="110" y1="112" x2="110" y2="40" stroke="#FFA300" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="112" r="7" fill="#FFA300"/>
+            <circle cx="110" cy="112" r="3" fill="#15130d"/>
+          </g>
+        </svg>
+        <div class="read">0,6 <span class="u">dias úteis</span></div>
+        <div class="read-sub">meta: 3,7 dias úteis · medido em 91 demandas finalizadas</div>
+        <span class="vu-chip">✓ 617% DA META</span>
+        <div class="flavor">tão rápido que estourou o medidor ⚡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUTORES ============ -->
+<section id="produtores">
+  <div class="wrap">
+    <div class="sec-kicker">🎛️ Backstage · A Produção</div>
+    <h2>Quem faz as divas brilharem</h2>
+    <p class="sec-sub">Toda grande turnê tem uma equipe técnica lendária. Crachá de acesso total para os produtores de maio:</p>
+
+    <div class="crew">
+      <div class="pass reveal">
+        <div class="lanyard"></div>
+        <div class="photo">
+          <img src="assets/pedro.png" alt="Pedro Paulo" onerror="this.remove()">
+          <div class="fallback" style="background:linear-gradient(135deg,#FFA300,#FFC23D);">PP</div>
+          <span class="badge">🚀</span>
+        </div>
+        <div class="info">
+          <div class="role">O Hitmaker</div>
+          <div class="name">Pedro Paulo</div>
+          <div class="gig">Produziu a nova era das campanhas Outbound — imagem, regras e transbordo</div>
+          <div class="stats"><span><b>61</b>entregas</span><span style="text-align:right"><b>167</b>story points</span></div>
+        </div>
+        <div class="access">ACCESS ALL AREAS</div>
+      </div>
+
+      <div class="pass reveal">
+        <div class="lanyard"></div>
+        <div class="photo">
+          <img src="assets/netto.webp" alt="João Netto" onerror="this.remove()">
+          <div class="fallback" style="background:linear-gradient(135deg,#4dd6ff,#9d7bff);">JN</div>
+          <span class="badge">🎚️</span>
+        </div>
+        <div class="info">
+          <div class="role">O Multi-instrumentista</div>
+          <div class="name">João Netto</div>
+          <div class="gig">Tocou em todos os palcos: crédito, Kiara, correções e fluxos</div>
+          <div class="stats"><span><b>30</b>entregas</span><span style="text-align:right"><b>78</b>story points</span></div>
+        </div>
+        <div class="access">ACCESS ALL AREAS</div>
+      </div>
+
+      <div class="pass reveal">
+        <div class="lanyard"></div>
+        <div class="photo">
+          <img src="assets/estevao.png" alt="Estêvão Cunha" onerror="this.remove()">
+          <div class="fallback" style="background:linear-gradient(135deg,#ff5fa2,#FFA300);">EC</div>
+          <span class="badge">🎼</span>
+        </div>
+        <div class="info">
+          <div class="role">O Arquiteto do Som</div>
+          <div class="name">Estêvão Cunha</div>
+          <div class="gig">Compôs a unificação das Dalilas — Planejadora &amp; Orquestradora</div>
+          <div class="stats"><span><b>18</b>entregas</span><span style="text-align:right"><b>54</b>story points</span></div>
+        </div>
+        <div class="access">ACCESS ALL AREAS</div>
+      </div>
+
+      <div class="pass reveal">
+        <div class="lanyard"></div>
+        <div class="photo">
+          <img src="assets/carlos.webp" alt="Carlos Livius" onerror="this.remove()">
+          <div class="fallback" style="background:linear-gradient(135deg,#9d7bff,#4dd6ff);">CL</div>
+          <span class="badge">🔧</span>
+        </div>
+        <div class="info">
+          <div class="role">O Engenheiro de Palco</div>
+          <div class="name">Carlos Livius</div>
+          <div class="gig">Garantiu que nenhum show caísse: deploys, ambientes e infraestrutura</div>
+          <div class="stats"><span><b>14</b>entregas</span><span style="text-align:right"><b>48</b>story points</span></div>
+        </div>
+        <div class="access">ACCESS ALL AREAS</div>
+      </div>
+
+    </div>
+
+    <p class="crew-note reveal">
+      Os números são individuais, mas <strong>o show é do coletivo</strong> — cada hit de maio passou pela mão de mais de um produtor antes de chegar ao palco.
+    </p>
+  </div>
+</section>
+
+<!-- ============ BASTIDORES / QUIMERA ============ -->
+<section class="alt" id="bastidores">
+  <div class="wrap">
+    <div class="sec-kicker">📋 Nos Bastidores</div>
+    <h2>Quimera: a produtora oficial da turnê</h2>
+    <p class="sec-sub">Maio consolidou o Quimera como o palco único onde toda a operação do time acontece — cada pedido vira ingresso rastreável, priorizado e medido.</p>
+
+    <div class="backstage">
+      <div class="bs-card reveal">
+        <div class="ico">🎪</div>
+        <h4>Palco único</h4>
+        <p>Toda demanda do time registrada e acompanhada em um só lugar.</p>
+      </div>
+      <div class="bs-card reveal">
+        <div class="ico">🎯</div>
+        <h4>Setlist priorizado</h4>
+        <p>Alta, média e baixa visíveis para todo mundo — sem fura-fila no escuro.</p>
+      </div>
+      <div class="bs-card reveal">
+        <div class="ico">📊</div>
+        <h4>Métricas ao vivo</h4>
+        <p>Story points, entregas e satisfação em tempo real, sem planilha paralela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIS ============ -->
+<div class="finale">
+  <div class="wrap reveal">
+    <div class="sec-kicker">🎤 O Bis</div>
+    <p class="q">"Não foi playback.<br>Foi o time tocando <span class="hl">ao vivo, todo dia</span> — e a plateia pediu bis."</p>
+    <p class="sign">— Fechamento Maio/2026 · IA &amp; Automação — SalesOps</p>
+    <div class="next">
+      <b>🎧 Já em estúdio para junho</b>
+      A nova Dalila unificada chegando a todas as pistas, Kiara cada vez mais afinada — e novos singles no forno.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span><span class="y">■</span> Blips · SalesOps Records</span>
+    <span>fonte: board ia_salesops · Quimera · maio 2026</span>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+
+  function animateCount(el, target) {
+    const dur = 900; const t0 = performance.now();
+    function tick(t) {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.count').forEach(el => animateCount(el, parseInt(el.dataset.v, 10)));
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('in');
+      el.querySelectorAll('.count').forEach(n => { n.textContent = n.dataset.v; });
+    });
+  });
+</script>
+</body>
+</html>
